@@ -1,12 +1,16 @@
 #include <string>
 #include <iostream>
-#include <bankAccount.h>
+#include <BankAccount.h>
 using namespace std;
 
-class checkingAccount : public bankAccount {
+class CheckingAccount : public BankAccount {
     protected:
     bool flag;
     public:
+    void checkings()
+   {
+      bool flag = true;
+   }
     void deposit(double amount) {
         if(amount > 9999.0) {
             cout << "Your account is now considered high risk due to the large deposit." << endl;

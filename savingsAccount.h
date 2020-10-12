@@ -1,9 +1,9 @@
 #include <string>
 #include <iostream>
-#include <bankAccount.h>
+#include <BankAccount.h>
 using namespace std;
 
-class savingsAccount : public bankAccount {
+class SavingsAccount : public BankAccount {
     protected:
     bool status;
    // Default constructor

@@ -35,7 +35,7 @@ int main() {
             case 3: {
                 cout << "Goodbye!" << endl;
                 // add destruction of pointers, mem allocation here, etc.
-                break;
+                exit(1);
             }
             default: {
                 cout << "Try another input!" << endl;
@@ -59,6 +59,7 @@ void openAccount() {
         accNumber += to_string(random);
     }
     cout << "Your Checking Account number is: #C" << accNumber << endl;
+
     cout << "Your Savings Account number is: #S" << accNumber << endl;
     
 }

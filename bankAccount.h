@@ -3,7 +3,7 @@
 using namespace std;
 //parent class
 // bank acount 
-class bankAccount
+class BankAccount
 {
     protected:
     string accNum;
@@ -13,14 +13,14 @@ class bankAccount
 
     public:
     // Default
-    bankAccount()
+    BankAccount()
     {
         accNum = "";
         accBalance = 0.0;
         annualIR = 0.0;
     }
     // Constructor
-    bankAccount(string num, double balance, double intrestRate)
+    BankAccount(string num, double balance, double intrestRate)
     {
         accNum  = num;
         accBalance = balance;
