@@ -7,7 +7,7 @@ class savingsAccount : public bankAccount {
     protected:
     bool status;
    // Default constructor
-   Savings() : BankAccount()
+   savings() : BankAccount()
    {
       bool status = true;
    }
