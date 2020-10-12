@@ -3,6 +3,8 @@
 #include <bankAccount.h>
 using namespace std;
 
+void openAccount();
+void login(string accountNumber);
 
 int main() {
     cout << "-------------------" << endl;
@@ -17,11 +19,17 @@ int main() {
     cin >> userInput; 
     
     switch(userInput) {
-        case 1: {
+        case 1: { // create accounts
             
         }
-        case 2: {
-            
+        case 2: { // login
+            string accountNumber;
+            cout << "\n";
+            do {
+            cout << "Enter an 8 digit account number: ";
+            cin >> accountNumber;
+            }while(accountNumber.length() != 8); // make sure the length is 8. 
+
         }
         case 3: {
             cout << "Goodbye!" << endl;
@@ -36,4 +44,8 @@ int main() {
         }
     }
     main();
+}
+
+void login(string accountNumber) {
+    
 }
