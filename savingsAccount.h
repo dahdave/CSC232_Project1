@@ -6,6 +6,11 @@ using namespace std;
 class savingsAccount : public bankAccount {
     protected:
     bool status;
+   // Default constructor
+   Savings() : BankAccount()
+   {
+      bool status = true;
+   }
     public:
     void deposit(double amount) {
         if(amount > 0.00) {
