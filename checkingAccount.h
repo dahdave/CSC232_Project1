@@ -11,6 +11,13 @@ class CheckingAccount : public BankAccount {
    {
       bool flag = false;
    }
+    
+    checkingAccount(string num, double balance, double intrestRate) 
+    : bankAccount(string num, double balance, double intrestRate)
+    {
+        flag = false;
+    }
+    
     public:
     void checkings()
    {
