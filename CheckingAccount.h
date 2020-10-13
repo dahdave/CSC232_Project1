@@ -1,31 +1,36 @@
+#ifndef CHECKINGACCOUNT_H
+#define CHECKINGACCOUNT_H
 #include <string>
 #include <iostream>
-#include <BankAccount.h>
+//#include <fstream>
+#include "BankAccount.h"
 using namespace std;
 
 class CheckingAccount : public BankAccount {
-    protected:
-    bool flag;
+   protected:
+   bool flag;
    // Default constructor
-   checkingAccount() : BankAccount()
+   CheckingAccount() : BankAccount()
    {
       bool flag = false;
    }
     
-    checkingAccount(string num, double balance, double intrestRate) 
-    : bankAccount(string num, double balance, double intrestRate)
-    {
-        flag = false;
-    }
-    
-    public:
-    void checkings()
+   /*CheckingAccount(string num, double balance, double intrestRate) 
+   : BankAccount(string num, double balance, double intrestRate)
+   {
+      flag = false;
+   }*/
+       
+   public:
+   void checkings()
    {
       bool flag = true;
    }
     void deposit(double amount) {
         if(amount > 9999.0) {
             cout << "Your account is now considered high risk due to the large deposit." << endl;
+            //ofstream txtFile;
+            //txtFile.open
         }
         if(amount > 0.00) {
             accBalance += amount;
@@ -54,3 +59,4 @@ class CheckingAccount : public BankAccount {
             }
     }
 };
+#endif
