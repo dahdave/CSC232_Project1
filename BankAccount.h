@@ -1,8 +1,10 @@
+#ifndef BANKACCOUNT_H
+#define BANKACCOUNT_H
 #include <string>
 #include <iostream>
 using namespace std;
 //parent class
-// bank acount 
+// bank account 
 class BankAccount
 {
     protected:
@@ -56,3 +58,4 @@ class BankAccount
     }
 
 };
+#endif
