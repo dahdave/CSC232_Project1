@@ -63,8 +63,10 @@ void openAccount() {
     cout << "Your Savings Account number is: #S" << accNumber << endl;
     
     cout << "How much would you like to deposit into your checking account "
+    
+    cin >> deposit
 
-    checkingAccount acc = checkingAccount(accNumber, depost, interest );
+    checkingAccount acc = checkingAccount(accNumber, deposit, interest );
     
 }
 
