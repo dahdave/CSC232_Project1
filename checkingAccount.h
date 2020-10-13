@@ -6,6 +6,11 @@ using namespace std;
 class CheckingAccount : public BankAccount {
     protected:
     bool flag;
+   // Default constructor
+   checkingAccount() : BankAccount()
+   {
+      bool flag = false;
+   }
     public:
     void checkings()
    {
