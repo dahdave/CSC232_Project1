@@ -7,9 +7,15 @@ class SavingsAccount : public BankAccount {
     protected:
     bool status;
    // Default constructor
-   void savings()
+   SavingsAccount() : BankAccount()
    {
-      bool status = true;
+      status = true;
+   }
+   // 2nd Constructor
+   SavingsAccount (string num, double balance, double interestRate): 
+   BankAccount (string num, double balance, double interestRate)
+   {
+      status = true;
    }
     public:
     void deposit(double amount) {
