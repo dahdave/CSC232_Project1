@@ -1,7 +1,9 @@
 #include <string>
 #include <iostream>
 #include <time.h>
-#include "bankAccount.h"
+#include "BankAccount.h"
+#include "CheckingAccount.h"
+#include "SavingsAccount.h"
 
 using namespace std;
 
@@ -62,7 +64,7 @@ void openAccount() {
 
     cout << "Your Savings Account number is: #S" << accNumber << endl;
     
-    cout << "How much would you like to deposit into your checking account "
+    cout << "How much would you like to deposit into your checking account " << endl;
     
     cin >> deposit
 
