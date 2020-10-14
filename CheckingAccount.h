@@ -12,11 +12,11 @@ class CheckingAccount : public BankAccount {
    // Default constructor
    CheckingAccount() : BankAccount()
    {
-      bool flag = false;
+      flag = false;
    }
     
-   CheckingAccount(string num, double balance, double intrestRate) 
-   : BankAccount(num, balance, intrestRate)
+   CheckingAccount(string num, double balance, double interestRate) 
+   : BankAccount(num, balance, interestRate)
    {
       flag = false;
    }
@@ -24,7 +24,7 @@ class CheckingAccount : public BankAccount {
 
    void checkings()
    {
-      bool flag = true;
+      flag = true;
    }
     void deposit(double amount) {
         if(amount > 9999.0) {
@@ -58,5 +58,11 @@ class CheckingAccount : public BankAccount {
                 }
             }
     }
+    void setAccount (string num, double balance, double interestRate)
+    {
+        accNum  = num;
+        accBalance = balance;
+        annualIR = interestRate;
+    } 
 };
 #endif
