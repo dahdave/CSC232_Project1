@@ -4,6 +4,7 @@
 #include "BankAccount.h"
 #include "CheckingAccount.h"
 #include "SavingsAccount.h"
+#include <vector>
 
 using namespace std;
 
@@ -81,12 +82,15 @@ void login(string accountNumber) {
     vector<CheckingAccount> checkingAccounts;
     vector<CheckingAccount> savingsAccounts;
     string userLogin;
+    string character;
+    string accNum;
+    int userInput;
     
     // write from file to vectors here
     
     cout << "Enter your account number to login: ";
     cin >> userLogin;
-    character = userlogin.substr(0);
+    character = userLogin.substr(0);
  
     if ( character == "C")
     {
@@ -101,17 +105,17 @@ void login(string accountNumber) {
                     cout << "[1] Withdraw" << endl;
                     cout << "[2] Deposit" << endl;
                     cout << "[3] Exit the account" << endl;
-                    cin << userInput;
+                    cin >> userInput;
                     switch(userInput){
                         double amount;
                         case 1: { //withdraw
                                 cout << "How much would you like to withdraw?\n";
-                                cin << amount;
+                                cin >> amount;
                                 checkingAccounts[i].withdraw(amount);
                         }
                         case 2: { // deposit
                                 cout << "How much would you like to deposit?\n";
-                                cin << amount;
+                                cin >> amount;
                                 checkingAccounts[i].deposit(amount);
                         }
                         case 3:{
@@ -123,9 +127,10 @@ void login(string accountNumber) {
                     }
                             
                             
-                }while(userInput != 3)
+                }while(userInput != 3);
             }
     }
+}
     else if(character == "S")
     {
         
@@ -140,17 +145,17 @@ void login(string accountNumber) {
                     cout << "[1] Withdraw" << endl;
                     cout << "[2] Deposit" << endl;
                     cout << "[3] Exit the account" << endl;
-                    cin << userInput;
+                    cin >> userInput;
                     switch(userInput){
                         double amount;
                         case 1: { //withdraw
                                 cout << "How much would you like to withdraw?\n";
-                                cin << amount;
+                                cin >> amount;
                                 savingsAccounts[i].withdraw(amount);
                         }
                         case 2: { // deposit
                                 cout << "How much would you like to deposit?\n";
-                                cin << amount;
+                                cin >> amount;
                                 savingsAccounts[i].deposit(amount);
                         }
                         case 3:{
@@ -162,9 +167,8 @@ void login(string accountNumber) {
                     }
                             
                             
-                }while(userInput != 3)
-            }
-    }
-    
-    
+                }while(userInput != 3);
+             }
+          }
+       }    
 }
