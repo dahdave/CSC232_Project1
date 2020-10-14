@@ -53,6 +53,8 @@ int main() {
 
 void openAccount() {
     srand((unsigned) time(0));
+    double deposit;
+    double interest = 1;
     string accNumber;
     int random;
     cout << "Creating your checkings and savings...." << endl;
@@ -66,9 +68,11 @@ void openAccount() {
     
     cout << "How much would you like to deposit into your checking account " << endl;
     
-    cin >> deposit
+    cin >> deposit;
+    
+    
 
-    checkingAccount acc = checkingAccount(accNumber, deposit, interest );
+    CheckingAccount acc = CheckingAccount(accNumber, deposit, interest);
     
 }
 
