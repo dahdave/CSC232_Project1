@@ -172,7 +172,127 @@ void login(string accountNumber) {
              }
           }
        }  
-    // clear file
-    //write vector to file
-    //delete vector
+ 
+int getTotalCheckingAccounts() {
+    int totalAccounts = 0;
+    string text;
+    ifstream inFile("checkingAcc.txt");
+
+    if (!inFile)
+    {
+        cout << "student file not found" << endl;
+        return -1;
+    }
+
+    while (getline(inFile, text))
+        totalAccounts++;
+
+
+    inFile.close();
+
+    return totalAccounts/2;
+}
+
+int getTotalSavingAccounts() {
+    int totalAccounts = 0;
+    string text;
+    ifstream inFile("savingAcc.txt");
+
+    if (!inFile)
+    {
+        cout << "student file not found" << endl;
+        return -1;
+    }
+
+    while (getline(inFile, text))
+        totalAccounts++;
+
+
+    inFile.close();
+
+    return totalAccounts/2;
+
+}
+    
+ void loadFile() {
+    int totalCheckings = getTotalCheckingAccounts();
+    int totalSavings = getTotalSavingAccounts();
+    
+    SavingsAccount sAccounts[totalSavings];
+    CheckingAccount cAccounts[totalCheckings];
+
+    ifstream inFile;
+    string text;
+    // FILL checking ACCOUNTS WITH INFO
+    inFile.open("savingAcc.txt");
+    if(!inFile) {
+        cout << "Error reading file..." << endl;
+        return;
+    }
+
+    if (inFile)
+    {
+        long double balance;
+        string accNum;
+        double interestRate = 1.0; // CHANGE THIS IN THE FUTURE
+        while (getline(inFile, text))
+        {
+            int count = 0;
+            if (text.find("C") == 0)
+            {
+                accNum = text;
+                
+            }
+            getline(inFile,text);
+             try{
+                 balance = stod(text);
+             }catch(...) {
+                 break;
+                 
+             }
+            count++;
+        sAccounts[count].accNum = accNum;
+        sAccounts[count].accBalance = balance;
+        sAccounts[count].annualIR = interestRate;
+    }
+
+    // FILL checking ACCOUNTS WITH INFO
+    ifstream nFile;
+    string text;
+    nFile.open("checkingAcc.txt");
+    if(!nFile) {
+        cout << "hello" << endl;
+        cout << "Error reading file..." << endl;
+        return;
+    }
+
+    if (nFile)
+    {
+        long double balance;
+        string accNum;
+
+        while (getline(inFile, text))
+        {
+            int count = 0;
+            if (text.find("C") == 0)
+            {
+                accNum = text;
+                
+            }
+            getline(inFile,text);
+             try{
+                 balance = stod(text);
+             }catch(...) {
+                 break;
+                 
+             }
+            count++;
+        cAccounts[count].accNum = accNum;
+        cAccounts[count].accBalance = balance;
+      }
+    }
+
+    }
+}
+
 }
