@@ -7,13 +7,12 @@ using namespace std;
 // bank account 
 class BankAccount
 {
-    protected:
+    public:
     string accNum;
     double accBalance;
     double annualIR;
     double annualSC;
 
-    public:
     // Default
     BankAccount()
     {
