@@ -38,7 +38,7 @@ int main() {
             case 3: {
                 cout << "Goodbye!" << endl;
                 // add destruction of pointers, mem allocation here, etc.
-                exit(1);
+                exit(0);
             }
             default: {
                 cout << "Try another input!" << endl;
