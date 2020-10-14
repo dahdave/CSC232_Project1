@@ -6,7 +6,7 @@
 using namespace std;
 
 class SavingsAccount : public BankAccount {
-    protected:
+    public:
     bool status;
    // Default constructor
    SavingsAccount() : BankAccount()
