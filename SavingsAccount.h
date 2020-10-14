@@ -1,6 +1,3 @@
-#ifndef SAVINGSACCOUNT_H
-#define SAVINGSACCOUNT_H
-#include <string>
 #include <iostream>
 #include "BankAccount.h"
 using namespace std;
@@ -14,12 +11,12 @@ class SavingsAccount : public BankAccount {
       status = true;
    }
    // 2nd Constructor
-   /*SavingsAccount (string num, double balance, double interestRate): 
-   BankAccount (string num, double balance, double interestRate)
+   SavingsAccount (string num, double balance, double interestRate): 
+   BankAccount (num, balance, interestRate)
    {
       status = true;
-   }*/
-    public:
+   }
+
     void deposit(double amount) {
         if(amount > 0.00) {
             accBalance += amount;
