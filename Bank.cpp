@@ -170,5 +170,8 @@ void login(string accountNumber) {
                 }while(userInput != 3);
              }
           }
-       }    
+       }  
+    // clear file
+    //write vector to file
+    //delete vector
 }
