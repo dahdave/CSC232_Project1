@@ -15,13 +15,13 @@ class CheckingAccount : public BankAccount {
       bool flag = false;
    }
     
-   /*CheckingAccount(string num, double balance, double intrestRate) 
-   : BankAccount(string num, double balance, double intrestRate)
+   CheckingAccount(string num, double balance, double intrestRate) 
+   : BankAccount(num, balance, intrestRate)
    {
       flag = false;
-   }*/
+   }
        
-   public:
+
    void checkings()
    {
       bool flag = true;
