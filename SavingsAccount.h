@@ -1,3 +1,6 @@
+#ifndef SAVINGSACCOUNT_H
+#define SAVINGSACCOUNT_H
+#include <string>
 #include <iostream>
 #include "BankAccount.h"
 using namespace std;
@@ -30,27 +33,44 @@ class SavingsAccount : public BankAccount {
         }
         
     }
-    void withdraw(double amount) {
-        if(status == false) { // deny the withdraw
+    void withdraw(double amount) 
+    {
+        if(status == false) 
+        { // deny the withdraw
             cout << "You may not withdraw, your account balance is: " << accBalance << endl;
             cout << "You must raise your account balance above $50 to become/remain active." << endl;
-        }else if (status == true) { // do the withdraw from the balance
-            if(accBalance >= amount) {
+        }
+        else if (status == true) 
+        { // do the withdraw from the balance
+            if(accBalance >= amount) 
+            {
                 accBalance -= amount; 
-            }else {
+            }
+            else 
+            {
                 cout << "Invalid funds " << endl;
                 cout << "Your balance is: " << accBalance << endl;
             }
-            if(accBalance < 1.00) {
+            if(accBalance < 1.00) 
+            {
                 cout << "The savings account was closed. Balance fell below $1" << endl;
                 closeAcc();
             }
-            if(accBalance < 50.0) {
+            if(accBalance < 50.0) 
+            {
                 cout << "Warning! Your savings account is now inactive because the balance is now below $50." << endl;
                 cout << "You must deposit more money before you can make another withdraw." << endl;
                 status = false;
             }
         }
     }
+    void setAccount (string num, double balance, double interestRate)
+    {
+        accNum  = num;
+        accBalance = balance;
+        annualIR = interestRate;
+    }    
+    
+      
 };
 #endif
