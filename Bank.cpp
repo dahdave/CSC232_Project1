@@ -78,5 +78,93 @@ void openAccount() {
 
 void login(string accountNumber) {
     
+    vector<CheckingAccount> checkingAccounts;
+    vector<CheckingAccount> savingsAccounts;
+    string userLogin;
+    
+    // write from file to vectors here
+    
+    cout << "Enter your account number to login: ";
+    cin >> userLogin;
+    character = userlogin.substr(0);
+ 
+    if ( character == "C")
+    {
+        for(int i; i < checkingAccounts.size(); i++)
+        {
+            accNum =checkingAccounts[i].accNum;
+            if(accNum == userLogin)
+            {
+                
+                do{ 
+                    cout << "What would you like to do? \n" << endl;
+                    cout << "[1] Withdraw" << endl;
+                    cout << "[2] Deposit" << endl;
+                    cout << "[3] Exit the account" << endl;
+                    cin << userInput;
+                    switch(userInput){
+                        double amount;
+                        case 1: { //withdraw
+                                cout << "How much would you like to withdraw?\n";
+                                cin << amount;
+                                checkingAccounts[i].withdraw(amount);
+                        }
+                        case 2: { // deposit
+                                cout << "How much would you like to deposit?\n";
+                                cin << amount;
+                                checkingAccounts[i].deposit(amount);
+                        }
+                        case 3:{
+                            cout << "Exiting...\n";
+                        }
+                        default: {
+                            cout << "Try another input!" << endl;
+                        }
+                    }
+                            
+                            
+                }while(userInput != 3)
+            }
+    }
+    else if(character == "S")
+    {
+        
+        for(int i; i < savingsAccounts.size(); i++)
+        {
+            accNum =savingsAccounts[i].accNum;
+            if(accNum == userLogin)
+            {
+                
+                do{ 
+                    cout << "What would you like to do? \n" << endl;
+                    cout << "[1] Withdraw" << endl;
+                    cout << "[2] Deposit" << endl;
+                    cout << "[3] Exit the account" << endl;
+                    cin << userInput;
+                    switch(userInput){
+                        double amount;
+                        case 1: { //withdraw
+                                cout << "How much would you like to withdraw?\n";
+                                cin << amount;
+                                savingsAccounts[i].withdraw(amount);
+                        }
+                        case 2: { // deposit
+                                cout << "How much would you like to deposit?\n";
+                                cin << amount;
+                                savingsAccounts[i].deposit(amount);
+                        }
+                        case 3:{
+                            cout << "Exiting...\n";
+                        }
+                        default: {
+                            cout << "Try another input!" << endl;
+                        }
+                    }
+                            
+                            
+                }while(userInput != 3)
+            }
+    }
+    
     
 }
