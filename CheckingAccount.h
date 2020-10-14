@@ -7,7 +7,7 @@
 using namespace std;
 
 class CheckingAccount : public BankAccount {
-   protected:
+   public:
    bool flag;
    // Default constructor
    CheckingAccount() : BankAccount()
