@@ -100,7 +100,7 @@ void login(string accountNumber) {
         for(int i; i < checkingAccounts.size(); i++)
         {
             cAccount =checkingAccounts.at(i);
-            accNum = cAccount.accNum();
+            accNum = cAccount.accNum;
             if(accNum == userLogin)
             {
                 
@@ -126,11 +126,11 @@ void login(string accountNumber) {
                         }
                         case 3: { //check balance
                                 cout << "Here is your current balance.\n";
-                                cout << cAccount.accBalance
+                                cout << cAccount.accBalance;
                         }
                         case 4: { // delete
                                 cout << "Deleting account...";
-
+                        }
                         case 5:{
                             cout << "Exiting...\n";
                         }
@@ -149,7 +149,7 @@ void login(string accountNumber) {
         
         for(int i; i < savingsAccounts.size(); i++)
         {
-            sAccount = savingsAccount.at(i)
+            sAccount = savingsAccounts.at(i);
             accNum = sAccount.accNum;
             if(accNum == userLogin)
             {
