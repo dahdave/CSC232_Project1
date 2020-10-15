@@ -84,6 +84,8 @@ void login(string accountNumber) {
     vector<CheckingAccount> savingsAccounts;
     string userLogin;
     string character;
+    CheckingAccount cAccount;
+    SavingsAccount sAccount;
     string accNum;
     int userInput;
     
@@ -97,7 +99,8 @@ void login(string accountNumber) {
     {
         for(int i; i < checkingAccounts.size(); i++)
         {
-            accNum =checkingAccounts[i].accNum;
+            cAccount =checkingAccounts.at(i);
+            accNum = cAccount.accNum();
             if(accNum == userLogin)
             {
                 
@@ -112,12 +115,12 @@ void login(string accountNumber) {
                         case 1: { //withdraw
                                 cout << "How much would you like to withdraw?\n";
                                 cin >> amount;
-                                checkingAccounts[i].withdraw(amount);
+                                cAccount.withdraw(amount);
                         }
                         case 2: { // deposit
                                 cout << "How much would you like to deposit?\n";
                                 cin >> amount;
-                                checkingAccounts[i].deposit(amount);
+                                cAccount.deposit(amount);
                         }
                         case 3:{
                             cout << "Exiting...\n";
@@ -137,7 +140,8 @@ void login(string accountNumber) {
         
         for(int i; i < savingsAccounts.size(); i++)
         {
-            accNum =savingsAccounts[i].accNum;
+            sAccount = savingsAccount.at(i)
+            accNum = sAccount.accNum;
             if(accNum == userLogin)
             {
                 
@@ -152,12 +156,12 @@ void login(string accountNumber) {
                         case 1: { //withdraw
                                 cout << "How much would you like to withdraw?\n";
                                 cin >> amount;
-                                savingsAccounts[i].withdraw(amount);
+                                sAccount.withdraw(amount);
                         }
                         case 2: { // deposit
                                 cout << "How much would you like to deposit?\n";
                                 cin >> amount;
-                                savingsAccounts[i].deposit(amount);
+                                sAccount.deposit(amount);
                         }
                         case 3:{
                             cout << "Exiting...\n";
