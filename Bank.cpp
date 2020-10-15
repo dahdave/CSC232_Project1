@@ -82,7 +82,7 @@ void login(string accountNumber)
 {
     
     vector<CheckingAccount> checkingAccounts;
-    vector<CheckingAccount> savingsAccounts;
+    vector<SavingsAccount> savingsAccounts;
     CheckingAccount cAccount;
     SavingsAccount sAccount;
     string userLogin;
