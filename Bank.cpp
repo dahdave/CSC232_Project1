@@ -78,7 +78,8 @@ void openAccount() {
     
 }
 
-void login(string accountNumber) {
+void login(string accountNumber) 
+{
     
     vector<CheckingAccount> checkingAccounts;
     vector<CheckingAccount> savingsAccounts;
@@ -112,29 +113,36 @@ void login(string accountNumber) {
                     cout << "[4] Close Account" << endl;
                     cout << "[5] Exit the account" << endl;
                     cin >> userInput;
-                    switch(userInput){
+                    switch(userInput)
+                    {
                         double amount;
-                        case 1: { //withdraw
-                                cout << "How much would you like to withdraw?\n";
-                                cin >> amount;
-                                cAccount.withdraw(amount);
+                        case 1: //withdraw
+                        {
+                            cout << "How much would you like to withdraw?\n";
+                            cin >> amount;
+                            cAccount.withdraw(amount);
                         }
-                        case 2: { // deposit
-                                cout << "How much would you like to deposit?\n";
-                                cin >> amount;
-                                cAccount.deposit(amount);
+                        case 2: // deposit
+                        {
+                            cout << "How much would you like to deposit?\n";
+                            cin >> amount;
+                            cAccount.deposit(amount);
                         }
-                        case 3: { //check balance
-                                cout << "Here is your current balance.\n";
-                                cout << cAccount.accBalance;
+                        case 3: //check Balance
+                        { 
+                            cout << "Here is your current balance.\n";
+                            cout << cAccount.accBalance;
                         }
-                        case 4: { // delete
-                                cout << "Deleting account...";
+                        case 4: //delete
+                        {
+                            cout << "Deleting account...";
                         }
-                        case 5:{
+                        case 5: //exit
+                        {
                             cout << "Exiting...\n";
                         }
-                        default: {
+                        default: 
+                        {
                             cout << "Try another input!" << endl;
                         }
                     }
@@ -142,8 +150,9 @@ void login(string accountNumber) {
                             
                 }while(userInput != 5);
             }
+        }
     }
-}
+
     else if(character == "S")
     {
         
@@ -162,38 +171,45 @@ void login(string accountNumber) {
                     cout << "[4] Close Account" << endl;
                     cout << "[5] Exit the account" << endl;
                     cin >> userInput;
-                    switch(userInput){
+                    switch(userInput)
+                    {
                         double amount;
-                        case 1: { //withdraw
-                                cout << "How much would you like to withdraw?\n";
-                                cin >> amount;
-                                sAccount.withdraw(amount);
+                        case 1:  //withdraw
+                        {
+                            cout << "How much would you like to withdraw?\n";
+                            cin >> amount;
+                            sAccount.withdraw(amount);
                         }
-                        case 2: { // deposit
-                                cout << "How much would you like to deposit?\n";
-                                cin >> amount;
-                                sAccount.deposit(amount);
+                        case 2:  // deposit
+                        {
+                            cout << "How much would you like to deposit?\n";
+                            cin >> amount;
+                            sAccount.deposit(amount);
                         }
-                        case 3: { //check balance
-                                cout << "Here is your current balance.\n";
-                                sAccount.accBalance;
+                        case 3:  //check balance
+                        {
+                            cout << "Here is your current balance.\n";
+                            sAccount.accBalance;
                         }
-                        case 4: { // delete
-                                cout << "Deleting account...";
-                                
-                        case 5:{
+                        case 4:  // delete
+                        {
+                            cout << "Deleting account...";
+                        }       
+                        case 5:
+                        {
                             cout << "Exiting...\n";
                         }
-                        default: {
+                        default: 
+                        {
                             cout << "Try another input!" << endl;
                         }
                     }
                             
                             
                 }while(userInput != 5);
-             }
-          }
-       }    
+            }
+        }
+    }    
 }
  
 int getTotalCheckingAccounts() {
