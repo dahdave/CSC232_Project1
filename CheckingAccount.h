@@ -30,8 +30,7 @@ class CheckingAccount : public BankAccount {
     void deposit(long double amount) {
         if(amount > 9999.0) {
             cout << "Your account is now considered high risk due to the large deposit." << endl;
-            //ofstream txtFile;
-            //txtFile.open
+            accNum = accNum + "*";
         }
         if(amount > 0.00) {
             accBalance += amount;
@@ -76,8 +75,9 @@ class CheckingAccount : public BankAccount {
                     flag = true;
                     cout << "Your balance fell below $0.";
                     cout << " Your checking account is now considered high risk." << endl;
+                    accNum = accNum + "*";
                 }
             }
-    }
+    } 
 };
 #endif
