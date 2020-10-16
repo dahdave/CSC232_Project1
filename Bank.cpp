@@ -42,15 +42,13 @@ int main() {
         switch(userInput) {
             case 1: { // create accounts
                 openAccount();
-                
+                reloadFile(cAccounts,sAccounts);
                 continue;
             }
             case 2: { // login
                 login(cAccounts, sAccounts);
-                continue;
                 }
-                
-               
+                continue;
             case 3: {
                 cout << "Goodbye!" << endl;
                 // add destruction of pointers, mem allocation here, etc.
@@ -64,7 +62,6 @@ int main() {
             }
             break;
         }
-        
     }
 }
 
@@ -105,15 +102,15 @@ void openAccount() {
     cout << "Savings Balance: " << newSavings.accBalance << endl;
     cout << "\n\n" << endl;
     // Append to the file accounts, add error counting to the files
-    ofstream outFile("checkingAcc.txt", std::ios_base::app | std::ios_base::out);
+    ofstream outFile("c.txt", std::ios_base::out | std::ios_base::app);
     outFile << newChecking.accNum << endl;
     outFile << newChecking.accBalance << endl;
     outFile.close();
-    ofstream outFile2("savingAcc.txt", std::ios_base::app | std::ios_base::out);
+    ofstream outFile2("s.txt", std::ios_base::out | std::ios_base::app);
     outFile2 << newSavings.accNum << endl;
     outFile2 << newSavings.accBalance << endl;
     outFile2.close();
-
+    
     
 }
 
@@ -124,7 +121,7 @@ int getTotalCheckingAccounts() {
 
     if (!inFile)
     {
-        cout << " file not found" << endl;
+        cout << "student file not found" << endl;
         return -1;
     }
 
@@ -162,7 +159,7 @@ void loadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
     ifstream inFile;
     string text;
     // FILL checking ACCOUNTS WITH INFO
-    inFile.open("savingAcc.txt");
+    inFile.open("s.txt");
     if(!inFile) {
         cout << "Error reading file..." << endl;
         return;
@@ -197,7 +194,7 @@ void loadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
     inFile.close();
     // FILL checking ACCOUNTS WITH INFO
 
-    inFile.open("checkingAcc.txt");
+    inFile.open("c.txt");
     if(!inFile) {
         cout << "Error reading file..." << endl;
         return;
@@ -286,7 +283,6 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
                           cout << "-------------------" << endl;
 
                           cAccounts[i].withdraw(withdrawAmt);
-
                           cout << "-------------------" << endl;
                           cout << "Your new balance is: " << cAccounts[i].accBalance << endl;
                           cout << "-------------------" << endl;
@@ -298,6 +294,7 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
                          }
                         case 3: {
                             reloadFile(cAccounts, sAccounts);
+                            loadFile(cAccounts, sAccounts);
                             main();
                             break;
                          }
@@ -323,8 +320,6 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
              }
         }else if (accountNumber.find("S") == 0) {
             for(int i = 0; i < getTotalSavingAccounts(); i++) {
-            cout << "account number" << accountNumber << endl;
-            cout << "vs. " << sAccounts[i].accNum << endl;
             if(accountNumber == sAccounts[i].accNum) {
                 for(;;) {
                     cout << "-------------------" << endl;
@@ -354,7 +349,6 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
                          cout << "Hit enter to continue" << endl;
                          char enter = cin.get(); 
                          cin.ignore();
-
                          continue;
 
                         }
@@ -367,18 +361,18 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
                           cout << "-------------------" << endl;
 
                           sAccounts[i].withdraw(withdrawAmt);
-\
                           cout << "-------------------" << endl;
                           cout << "Your new balance is: " << sAccounts[i].accBalance << endl;
                           cout << "-------------------" << endl;
                           cout << "Hit enter to continue" << endl;
                           char enter = cin.get(); 
                           cin.ignore();
-
+   
                           continue;
                          }
                         case 3: {
                             reloadFile(cAccounts, sAccounts);
+                            loadFile(cAccounts,sAccounts);
                             main();
                             break;
                          }
@@ -388,6 +382,7 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
                             cout << "Annual Service Charge: " << sAccounts[i].annualSC << endl;
                             cout << "-------------------" << endl;
                             cout << "Hit enter to continue" << endl;
+          
                             char enter = cin.get(); 
                             cin.ignore();
                             continue;
@@ -405,11 +400,13 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
         }else {
         cout << "Invalid Account #" << endl;
     }
+   
 }
 
 void reloadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
     ofstream outFile;
-    outFile.open("checkingAcc.txt");
+    outFile.open("c.txt");
+    
     for(int i = 0; i < getTotalCheckingAccounts(); i++) {
         outFile << cAccounts[i].accNum << endl;
         outFile << cAccounts[i].accBalance << endl;
@@ -417,7 +414,7 @@ void reloadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
     outFile.close();
 
     ofstream outFile2;
-    outFile2.open("savingAcc.txt");
+    outFile2.open("s.txt");
 
     for(int i = 0; i < getTotalSavingAccounts(); i++) {
         outFile2 << sAccounts[i].accNum << endl;
