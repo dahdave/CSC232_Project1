@@ -57,11 +57,12 @@ class BankAccount
         accBalance -= ammount;
     }
     // calculates daily interest rate and adds the daily interest to account balance
-    void calcInt()
+    double calcInt(double balance)
     {
         double dailyIR = annualIR / 365;
         dailyIR = dailyIR * accBalance;
         accBalance += dailyIR;
+        return accBalance;
     }
 
     // unfinished
