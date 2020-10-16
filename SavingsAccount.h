@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include "BankAccount.h"
+#include <limits>
 using namespace std;
 
 class SavingsAccount : public BankAccount {
@@ -25,6 +26,15 @@ class SavingsAccount : public BankAccount {
             accBalance += amount;
         }else {
             cout << "Invalid deposit" << endl;
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            for(;;) {
+                cout << "Please enter a valid deposit: "<< endl;
+                double amt;
+                cin >> amt;
+                deposit(amt);
+                break;
+            }
         }
         if(accBalance >= 50.0) {
             status = true;
@@ -49,7 +59,6 @@ class SavingsAccount : public BankAccount {
             else 
             {
                 cout << "Invalid funds " << endl;
-                cout << "Your balance is: " << accBalance << endl;
             }
             if(accBalance < 1.00) 
             {
