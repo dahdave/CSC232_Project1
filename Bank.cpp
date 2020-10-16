@@ -42,12 +42,11 @@ int main() {
         switch(userInput) {
             case 1: { // create accounts
                 openAccount();
-                reloadFile(cAccounts, sAccounts);
+                
                 continue;
             }
             case 2: { // login
                 login(cAccounts, sAccounts);
-                reloadFile(cAccounts, sAccounts);
                 continue;
                 }
                 
@@ -125,7 +124,7 @@ int getTotalCheckingAccounts() {
 
     if (!inFile)
     {
-        cout << "student file not found" << endl;
+        cout << " file not found" << endl;
         return -1;
     }
 
@@ -298,6 +297,7 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
                           continue;
                          }
                         case 3: {
+                            reloadFile(cAccounts, sAccounts);
                             main();
                             break;
                          }
@@ -378,6 +378,7 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
                           continue;
                          }
                         case 3: {
+                            reloadFile(cAccounts, sAccounts);
                             main();
                             break;
                          }
@@ -408,8 +409,7 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
 
 void reloadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
     ofstream outFile;
-    outFile.open("c.txt");
-    cout << "wiggitiy" << endl;
+    outFile.open("checkingAcc.txt");
     for(int i = 0; i < getTotalCheckingAccounts(); i++) {
         outFile << cAccounts[i].accNum << endl;
         outFile << cAccounts[i].accBalance << endl;
@@ -417,7 +417,7 @@ void reloadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
     outFile.close();
 
     ofstream outFile2;
-    outFile2.open("s.txt");
+    outFile2.open("savingAcc.txt");
 
     for(int i = 0; i < getTotalSavingAccounts(); i++) {
         outFile2 << sAccounts[i].accNum << endl;
