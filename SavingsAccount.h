@@ -75,6 +75,10 @@ class SavingsAccount : public BankAccount {
             }
         }
     }
+    void calcInterest(double accBalance)
+    {
+       accBalance = calcInt(accBalance);
+    }  
     void setAccount (string num, double balance, double interestRate)
     {
         accNum  = num;
