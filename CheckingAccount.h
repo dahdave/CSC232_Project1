@@ -4,6 +4,7 @@
 #include <iostream>
 //#include <fstream>
 #include "BankAccount.h"
+#include <limits>
 using namespace std;
 
 class CheckingAccount : public BankAccount {
@@ -15,8 +16,8 @@ class CheckingAccount : public BankAccount {
       flag = false;
    }
     
-   CheckingAccount(string num, double balance, double interestRate) 
-   : BankAccount(num, balance, interestRate)
+   CheckingAccount(string num, long double balance, double intrestRate) 
+   : BankAccount(num, balance, intrestRate)
    {
       flag = false;
    }
@@ -24,9 +25,9 @@ class CheckingAccount : public BankAccount {
 
    void checkings()
    {
-      flag = true;
+      bool flag = true;
    }
-    void deposit(double amount) {
+    void deposit(long double amount) {
         if(amount > 9999.0) {
             cout << "Your account is now considered high risk due to the large deposit." << endl;
             //ofstream txtFile;
@@ -36,6 +37,15 @@ class CheckingAccount : public BankAccount {
             accBalance += amount;
         }else {
             cout << "Invalid deposit" << endl;
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            for(;;) {
+                cout << "Please enter a valid deposit: " << endl;
+                double amt;
+                cin >> amt;
+                deposit(amt);
+                break;
+            }
         }
         if(accBalance >= 50.0) {
             flag = true;
@@ -43,26 +53,31 @@ class CheckingAccount : public BankAccount {
             flag = false; 
         }
     }
-    void withdraw(double amount) {
+    void withdraw(long double amount) {
+       if(amount < 0.00) {
+          cout << "Invalid withdraw" << endl;
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            for(;;) {
+                cout << "Please enter a valid withdraw: " << endl;
+                double amt;
+                cin >> amt;
+                withdraw(amt);
+                break;
+            }
+       }
        if(accBalance >= amount) {
                 accBalance -= amount; 
             }else {
                 cout << "Invalid funds " << endl;
                 cout << "A non-sufficient fund charge ($25) was applied to your account" << endl;
                 accBalance -= 25.0;
-                cout << "Your balance is now: " << accBalance << endl;
                 if(accBalance < 0.00) {
                     flag = true;
                     cout << "Your balance fell below $0.";
-                    cout << "Your checking account is now considered high risk.";
+                    cout << " Your checking account is now considered high risk." << endl;
                 }
             }
     }
-    void setAccount (string num, double balance, double interestRate)
-    {
-        accNum  = num;
-        accBalance = balance;
-        annualIR = interestRate;
-    } 
 };
 #endif
