@@ -239,7 +239,10 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
         cin >> accountNumber;
         }while(accountNumber.length() != 8); // make sure the length is 8. 
     
-    if(accountNumber.find("C") == 0) {
+    if(accountNumber.find("C") == 0) 
+    {
+        //if (day change)
+        sAccounts[i].calcInterest(sAccounts[i].accBalance);
         for(int i = 0; i < getTotalCheckingAccounts(); i++) {
             
             if(accountNumber == cAccounts[i].accNum.substr(0,8)) {
