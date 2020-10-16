@@ -89,9 +89,30 @@ void openAccount() {
         cout << "Would you like to deposit more? 1 = YES || 2 = NO:" << endl;
         int choice;
         cin >> choice;
+        while (choice > 2)
+        {
+            cout << "Would you like to deposit more? 1 = YES || 2 = NO:" << endl;
+            cin.clear();
+            cin.ignore(123,'\n');
+            cin >> choice;
+        }
+        while(choice < 1)
+        {
+            cout << "Would you like to deposit more? 1 = YES || 2 = NO:" << endl;
+            cin.clear();
+            cin.ignore(123,'\n');
+            cin >> choice;
+        }
+        while(cin.fail())
+        {
+            cout << "Would you like to deposit more? 1 = YES || 2 = NO:" << endl;
+            cin.clear();
+            cin.ignore(123,'\n');
+            cin >> choice;  
+        }
         if(choice == 2) {
             break;
-        } // @TODO: add error catching for this input later
+        }
     }
     cout << "\n\n" << endl;
     cout << "Checkings Account ID: " << newChecking.accNum << endl;
