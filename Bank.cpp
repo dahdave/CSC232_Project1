@@ -241,9 +241,9 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
     
     if(accountNumber.find("C") == 0) 
     {
-        //if (day change)
-        sAccounts[i].calcInterest(sAccounts[i].accBalance);
         for(int i = 0; i < getTotalCheckingAccounts(); i++) {
+            //if (day change)
+            sAccounts[i].calcInterest(sAccounts[i].accBalance);
             
             if(accountNumber == cAccounts[i].accNum.substr(0,8)) {
                 for(;;) {
