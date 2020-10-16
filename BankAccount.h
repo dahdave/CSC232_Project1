@@ -20,7 +20,7 @@ class BankAccount
     {
         accNum = "";
         accBalance = 0.0;
-
+         // Read in Interest
         ifstream nFile;
         nFile.open("interestRate.txt");
         string text2;
@@ -30,7 +30,7 @@ class BankAccount
         }else {
             annualIR = 0;
         }
-
+        // Read in SC
         ifstream inFile;
         inFile.open("serviceCharge.txt");
         string text;
