@@ -9,12 +9,11 @@
 
 
 
-// TODO: Saving Account Login, Re-write the object arraries to the files.
-
-
 using namespace std;
 
+// Functions
 void openAccount();
+
 void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts);
 void loadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts);
 void reloadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts);
@@ -24,15 +23,15 @@ int getTotalSavingAccounts();
 
 
 int main() {
-    for(;;) {
-        int totalCheckings = getTotalCheckingAccounts();
-        int totalSavings = getTotalSavingAccounts();
-        SavingsAccount sAccounts[totalSavings];
+    for(;;) { // loop for the main menu 
+        int totalCheckings = getTotalCheckingAccounts();           // Reload the array with the new account information 
+        int totalSavings = getTotalSavingAccounts();               // everytime the main menu restarts
+        SavingsAccount sAccounts[totalSavings];                    
         CheckingAccount cAccounts[totalCheckings];
         loadFile(cAccounts, sAccounts);
 
         cout << "-------------------" << endl;
-        cout << "What would you like to do? \n" << endl;
+        cout << "What would you like to do? \n" << endl;         // main menu
         cout << "[1] Open an Account" << endl;
         cout << "[2] Login to An Existing Account" << endl;
         cout << "[3] Exit the banking program" << endl;
@@ -49,12 +48,11 @@ int main() {
                 }
                 reloadFile(cAccounts, sAccounts);
                 continue;
-            case 3: {
+            case 3: { // exit
                 cout << "Goodbye!" << endl;
-                // add destruction of pointers, mem allocation here, etc.
                 exit(1);
             }
-            default: {
+            default: { // if any other input was inputted; restart
                 cout << "Try another input!" << endl;
                 cin.clear();
                 cin.ignore();
@@ -65,12 +63,12 @@ int main() {
     }
 }
 
-void openAccount() {
-    srand((unsigned) time(0));
+void openAccount() { 
+    srand((unsigned) time(0)); // random number account ID 
     string accNumber;
     int random;
     cout << "Creating your checkings and savings...." << endl;
-    for(int i = 0; i < 7; i++) {
+    for(int i = 0; i < 7; i++) { // creates the digits
         random = 1 + (rand() % 9);
         accNumber += to_string(random);
     }
@@ -80,7 +78,7 @@ void openAccount() {
     newChecking.accNum = "C" + accNumber;
     cout << "Your Savings Account number is: #S" << accNumber << endl;
     newSavings.accNum = "S" + accNumber;
-    for(;;) {
+    for(;;) { // loop to deposit x amount of money into each account until they wish to stop
         cout << "How much would you like to deposit into the checking account?: " << endl;
         long double depositAmt;
         cin >> depositAmt;
@@ -114,7 +112,7 @@ void openAccount() {
     
 }
 
-int getTotalCheckingAccounts() {
+int getTotalCheckingAccounts() { // get total checking accounts in checkingAcc.txt
     int totalAccounts = 0;
     string text;
     ifstream inFile("checkingAcc.txt");
@@ -134,7 +132,7 @@ int getTotalCheckingAccounts() {
     return totalAccounts/2;
 }
 
-int getTotalSavingAccounts() {
+int getTotalSavingAccounts() { // get total saving accounts in savingAcc.txt
     int totalAccounts = 0;
     string text;
     ifstream inFile("savingAcc.txt");
@@ -154,7 +152,7 @@ int getTotalSavingAccounts() {
 
 }
 
-void loadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
+void loadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) { // populate the two arrays with information from the sAcc & cAcc files
 
     ifstream inFile;
     string text;
@@ -170,7 +168,7 @@ void loadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
         long double balance;
         string accNum;
         int count = 0;
-        double interestRate = 1.0; // CHANGE THIS IN THE FUTURE
+        
         while (getline(inFile, text))
         {
             
@@ -188,8 +186,8 @@ void loadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
              }
         sAccounts[count].accNum = accNum;
         sAccounts[count].accBalance = balance;
-        sAccounts[count].annualIR = interestRate;
-        count++;
+        count++; // current index of the acocunts
+         
     }
     inFile.close();
     // FILL checking ACCOUNTS WITH INFO
@@ -221,7 +219,7 @@ void loadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
              }  
         cAccounts[count].accNum = accNum;
         cAccounts[count].accBalance = balance;
-        count++;
+        count++; // current index of the accounts
       }
     }
     inFile.close();
@@ -232,21 +230,21 @@ void loadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
 
 void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
     string accountNumber;
-    do {
+    do { // ask for input
         cout << "\n";
         cout << "-------------------" << endl;
         cout << "Enter an 8 digit account number: ";
         cin >> accountNumber;
         }while(accountNumber.length() != 8); // make sure the length is 8. 
     
-    if(accountNumber.find("C") == 0) 
+    if(accountNumber.find("C") == 0) // if the input is C, check for checking accounts
     {
+        
         for(int i = 0; i < getTotalCheckingAccounts(); i++) {
-            //if (day change)
-            sAccounts[i].calcInterest(sAccounts[i].accBalance);
-            
-            if(accountNumber == cAccounts[i].accNum.substr(0,8)) {
-                for(;;) {
+             //if (day change)
+             sAccounts[i].calcInterest(sAccounts[i].accBalance);
+            if(accountNumber == cAccounts[i].accNum.substr(0,8)) { // if the account matches a current acc
+                for(;;) { // menu for account loop
                     cout << "-------------------" << endl;
                     cout << "What would you like to do? \n" << endl;
                     cout << "[1] Deposit into your checking account" << endl;
@@ -296,7 +294,7 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
 
                           continue;
                          }
-                        case 3: {
+                        case 3: { // exit case
                             return;
                          }
                         case 4: {
@@ -309,7 +307,7 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
                             cin.ignore();
                             continue;
                         }
-                        default: {
+                        default: { // error catching
                                 cout << "Try another input!" << endl;
                                 cin.clear();
                                 cin.ignore();
@@ -319,9 +317,9 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
                      }
                  }
              }
-        }else if (accountNumber.find("S") == 0) {
+        }else if (accountNumber.find("S") == 0) { // if the input is a Savings account
             for(int i = 0; i < getTotalSavingAccounts(); i++) {
-            if(accountNumber == sAccounts[i].accNum) {
+            if(accountNumber == sAccounts[i].accNum) { // check against all savings account
                 for(;;) {
                     cout << "-------------------" << endl;
                     cout << "What would you like to do? \n" << endl;
@@ -371,10 +369,10 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
    
                           continue;
                          }
-                        case 3: {
+                        case 3: { // exit case
                             return;
                          }
-                        case 4: {
+                        case 4: { 
                             cout << "-------------------" << endl;
                             cout << "Your current Balance is: " << sAccounts[i].accBalance << endl;
                             cout << "Annual Service Charge: " << sAccounts[i].annualSC << endl;
@@ -385,7 +383,7 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
                             cin.ignore();
                             continue;
                         }
-                        default: {
+                        default: { // error catching
                                 cout << "Try another input!" << endl;
                                 cin.clear();
                                 cin.ignore();
@@ -396,18 +394,18 @@ void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
                  }
              }
         }else {
-        cout << "Invalid Account #" << endl;
+        cout << "Invalid Account #" << endl; // error catching
     }
    
 }
 
-void reloadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
-    int totalCheckings = getTotalCheckingAccounts();
-    int totalSavings = getTotalSavingAccounts();
+void reloadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) { // a function to overwrite the file with the new updated changes to the accounts
+    int totalCheckings = getTotalCheckingAccounts(); // get how many accounts there are now
+    int totalSavings = getTotalSavingAccounts(); // get how many accounts there are now
     cout << totalSavings << endl;
     ofstream outFile;
     outFile.open("checkingAcc.txt");
-    for(int i = 0; i < totalCheckings; i++) {
+    for(int i = 0; i < totalCheckings; i++) { // loop to output to the file 
         outFile << cAccounts[i].accNum << endl;
         outFile << cAccounts[i].accBalance << endl;
     }
@@ -416,7 +414,7 @@ void reloadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
     ofstream outFile2;
     outFile2.open("savingAcc.txt");
 
-    for(int i = 0; i < totalSavings; i++) {
+    for(int i = 0; i < totalSavings; i++) { // loop to  output to the file
         outFile2 << sAccounts[i].accNum << endl;
         outFile2 << sAccounts[i].accBalance << endl;
     }
