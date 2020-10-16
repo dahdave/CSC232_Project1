@@ -4,16 +4,33 @@
 #include "BankAccount.h"
 #include "CheckingAccount.h"
 #include "SavingsAccount.h"
+#include <fstream>
 #include <vector>
-#include <ctime>
+
+
+
+// TODO: Saving Account Login, Re-write the object arraries to the files.
+
 
 using namespace std;
 
 void openAccount();
-void login(string accountNumber);
+void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts);
+void loadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts);
+void reloadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts);
+
+int getTotalCheckingAccounts();
+int getTotalSavingAccounts();
+
 
 int main() {
     for(;;) {
+            int totalCheckings = getTotalCheckingAccounts();
+            int totalSavings = getTotalSavingAccounts();
+            SavingsAccount sAccounts[totalSavings];
+            CheckingAccount cAccounts[totalCheckings];
+            loadFile(cAccounts, sAccounts);
+
         cout << "-------------------" << endl;
         cout << "What would you like to do? \n" << endl;
         cout << "[1] Open an Account" << endl;
@@ -25,38 +42,35 @@ int main() {
         switch(userInput) {
             case 1: { // create accounts
                 openAccount();
+                reloadFile(cAccounts, sAccounts);
                 continue;
             }
             case 2: { // login
-                string accountNumber;
-                cout << "\n";
-                do {
-                cout << "Enter an 8 digit account number: ";
-                cin >> accountNumber;
-                }while(accountNumber.length() != 8); // make sure the length is 8. 
-                }
+                login(cAccounts, sAccounts);
+                reloadFile(cAccounts, sAccounts);
                 continue;
+                }
+                
+               
             case 3: {
                 cout << "Goodbye!" << endl;
                 // add destruction of pointers, mem allocation here, etc.
-                exit(0);
+                exit(1);
             }
             default: {
                 cout << "Try another input!" << endl;
-                cin.ignore();
                 cin.clear();
+                cin.ignore();
                 continue;
             }
             break;
         }
-
+        
     }
 }
 
 void openAccount() {
     srand((unsigned) time(0));
-    double deposit;
-    double interest = 1;
     string accNumber;
     int random;
     cout << "Creating your checkings and savings...." << endl;
@@ -64,154 +78,46 @@ void openAccount() {
         random = 1 + (rand() % 9);
         accNumber += to_string(random);
     }
+    SavingsAccount newSavings;
+    CheckingAccount newChecking;
     cout << "Your Checking Account number is: #C" << accNumber << endl;
-
+    newChecking.accNum = "C" + accNumber;
     cout << "Your Savings Account number is: #S" << accNumber << endl;
-    
-    cout << "How much would you like to deposit into your checking account " << endl;
-    
-    cin >> deposit;
-    
-    
-
-    CheckingAccount acc = CheckingAccount(accNumber, deposit, interest);
-    
-}
-
-void login(string accountNumber) 
-{
-    
-    vector<CheckingAccount> checkingAccounts;
-    vector<SavingsAccount> savingsAccounts;
-    CheckingAccount cAccount;
-    SavingsAccount sAccount;
-    string userLogin;
-    string character;
-    string accNum;
-    int userInput;
-    
-    // write from file to vectors here
-    
-    cout << "Enter your account number to login: ";
-    cin >> userLogin;
-    character = userLogin.substr(0);
- 
-    if ( character == "C")
-    {
-        for(int i; i < checkingAccounts.size(); i++)
-        {
-            cAccount =checkingAccounts.at(i);
-            accNum = cAccount.accNum;
-            if(accNum == userLogin)
-            {
-                
-                do{ 
-                    cout << "What would you like to do? \n" << endl;
-                    cout << "[1] Withdraw" << endl;
-                    cout << "[2] Deposit" << endl;
-                    cout << "[3] Check Balance" << endl;
-                    cout << "[4] Close Account" << endl;
-                    cout << "[5] Exit the account" << endl;
-                    cin >> userInput;
-                    switch(userInput)
-                    {
-                        double amount;
-                        case 1: //withdraw
-                        {
-                            cout << "How much would you like to withdraw?\n";
-                            cin >> amount;
-                            cAccount.withdraw(amount);
-                        }
-                        case 2: // deposit
-                        {
-                            cout << "How much would you like to deposit?\n";
-                            cin >> amount;
-                            cAccount.deposit(amount);
-                        }
-                        case 3: //check Balance
-                        { 
-                            cout << "Here is your current balance.\n";
-                            cout << cAccount.accBalance;
-                        }
-                        case 4: //delete
-                        {
-                            cout << "Deleting account...";
-                        }
-                        case 5: //exit
-                        {
-                            cout << "Exiting...\n";
-                        }
-                        default: 
-                        {
-                            cout << "Try another input!" << endl;
-                        }
-                    }
-                            
-                            
-                }while(userInput != 5);
-            }
-        }
+    newSavings.accNum = "S" + accNumber;
+    for(;;) {
+        cout << "How much would you like to deposit into the checking account?: " << endl;
+        long double depositAmt;
+        cin >> depositAmt;
+        newChecking.deposit(depositAmt);
+        cout << "How much would you like to deposit into the savings account?: " << endl;
+        cin >> depositAmt;
+        newSavings.deposit(depositAmt);
+        cout << "Would you like to deposit more? 1 = YES || 2 = NO:" << endl;
+        int choice;
+        cin >> choice;
+        if(choice == 2) {
+            break;
+        } // @TODO: add error catching for this input later
     }
+    cout << "\n\n" << endl;
+    cout << "Checkings Account ID: " << newChecking.accNum << endl;
+    cout << "Checkings Balance: " << newChecking.accBalance << endl;
+    cout << "Savings Account ID: " << newSavings.accNum << endl;
+    cout << "Savings Balance: " << newSavings.accBalance << endl;
+    cout << "\n\n" << endl;
+    // Append to the file accounts, add error counting to the files
+    ofstream outFile("checkingAcc.txt", std::ios_base::app | std::ios_base::out);
+    outFile << newChecking.accNum << endl;
+    outFile << newChecking.accBalance << endl;
+    outFile.close();
+    ofstream outFile2("savingAcc.txt", std::ios_base::app | std::ios_base::out);
+    outFile2 << newSavings.accNum << endl;
+    outFile2 << newSavings.accBalance << endl;
+    outFile2.close();
 
-    else if(character == "S")
-    {
-        
-        for(int i; i < savingsAccounts.size(); i++)
-        {
-            sAccount = savingsAccounts.at(i);
-            accNum = sAccount.accNum;
-            if(accNum == userLogin)
-            {
-                
-                do{ 
-                    cout << "What would you like to do? \n" << endl;
-                    cout << "[1] Withdraw" << endl;
-                    cout << "[2] Deposit" << endl;
-                    cout << "[3] Check Balance" << endl;
-                    cout << "[4] Close Account" << endl;
-                    cout << "[5] Exit the account" << endl;
-                    cin >> userInput;
-                    switch(userInput)
-                    {
-                        double amount;
-                        case 1:  //withdraw
-                        {
-                            cout << "How much would you like to withdraw?\n";
-                            cin >> amount;
-                            sAccount.withdraw(amount);
-                        }
-                        case 2:  // deposit
-                        {
-                            cout << "How much would you like to deposit?\n";
-                            cin >> amount;
-                            sAccount.deposit(amount);
-                        }
-                        case 3:  //check balance
-                        {
-                            cout << "Here is your current balance.\n";
-                            sAccount.accBalance;
-                        }
-                        case 4:  // delete
-                        {
-                            cout << "Deleting account...";
-                        }       
-                        case 5:
-                        {
-                            cout << "Exiting...\n";
-                        }
-                        default: 
-                        {
-                            cout << "Try another input!" << endl;
-                        }
-                    }
-                            
-                            
-                }while(userInput != 5);
-            }
-        }
-    }    
+    
 }
- 
+
 int getTotalCheckingAccounts() {
     int totalAccounts = 0;
     string text;
@@ -248,17 +154,11 @@ int getTotalSavingAccounts() {
 
 
     inFile.close();
-
     return totalAccounts/2;
 
 }
-    
- void loadFile() {
-    int totalCheckings = getTotalCheckingAccounts();
-    int totalSavings = getTotalSavingAccounts();
-    
-    SavingsAccount sAccounts[totalSavings];
-    CheckingAccount cAccounts[totalCheckings];
+
+void loadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
 
     ifstream inFile;
     string text;
@@ -273,11 +173,12 @@ int getTotalSavingAccounts() {
     {
         long double balance;
         string accNum;
+        int count = 0;
         double interestRate = 1.0; // CHANGE THIS IN THE FUTURE
         while (getline(inFile, text))
         {
-            int count = 0;
-            if (text.find("C") == 0)
+            
+            if (text.find("S") == 0)
             {
                 accNum = text;
                 
@@ -289,30 +190,27 @@ int getTotalSavingAccounts() {
                  break;
                  
              }
-            count++;
         sAccounts[count].accNum = accNum;
         sAccounts[count].accBalance = balance;
         sAccounts[count].annualIR = interestRate;
+        count++;
     }
-
+    inFile.close();
     // FILL checking ACCOUNTS WITH INFO
-    ifstream nFile;
-    string text;
-    nFile.open("checkingAcc.txt");
-    if(!nFile) {
-        cout << "hello" << endl;
+
+    inFile.open("checkingAcc.txt");
+    if(!inFile) {
         cout << "Error reading file..." << endl;
         return;
     }
 
-    if (nFile)
+    if (inFile)
     {
         long double balance;
         string accNum;
-
+        int count = 0;
         while (getline(inFile, text))
         {
-            int count = 0;
             if (text.find("C") == 0)
             {
                 accNum = text;
@@ -324,14 +222,208 @@ int getTotalSavingAccounts() {
              }catch(...) {
                  break;
                  
-             }
-            count++;
+             }  
         cAccounts[count].accNum = accNum;
         cAccounts[count].accBalance = balance;
+        count++;
       }
     }
+    inFile.close();
+ }
+ 
 
+}
+
+void login(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
+    string accountNumber;
+    do {
+        cout << "\n";
+        cout << "-------------------" << endl;
+        cout << "Enter an 8 digit account number: ";
+        cin >> accountNumber;
+        }while(accountNumber.length() != 8); // make sure the length is 8. 
+    
+    if(accountNumber.find("C") == 0) {
+        for(int i = 0; i < getTotalCheckingAccounts(); i++) {
+            if(accountNumber == cAccounts[i].accNum) {
+                for(;;) {
+                    cout << "-------------------" << endl;
+                    cout << "What would you like to do? \n" << endl;
+                    cout << "[1] Deposit into your checking account" << endl;
+                    cout << "[2] Withdraw from your checking account" << endl;
+                    cout << "[3] Return to main menu" << endl;
+                    cout << "[4] View Account Information (Balance, Annual Service Charge)" << endl;
+                    cout << "ACC #: " << cAccounts[i].accNum << endl;
+                    cout << "-------------------" << endl;
+                    int userInput;
+                    cin >> userInput;
+                    switch(userInput) {
+                       case 1: {
+
+                         cout << "-------------------" << endl;
+                         cout << "How much would you like to deposit into the account?: " << endl;
+                         cout << "-------------------" << endl;
+                         long double depositAmt;
+                         cin >> depositAmt;
+
+                         cAccounts[i].deposit(depositAmt);
+
+                         cout << "-------------------" << endl;
+                         cout << "Your new balance is: " << cAccounts[i].accBalance << endl;
+                         cout << "-------------------" << endl;
+                         cout << "Hit enter to continue" << endl;
+                         char enter = cin.get(); 
+                         cin.ignore();
+
+                         continue;
+
+                        }
+                        case 2: {
+                          cout << "-------------------" << endl;
+                          cout << "How much would you like to withdraw from the account?: " << endl;
+                          cout << "-------------------" << endl;
+                          long double withdrawAmt;
+                          cin >> withdrawAmt;
+                          cout << "-------------------" << endl;
+
+                          cAccounts[i].withdraw(withdrawAmt);
+
+                          cout << "-------------------" << endl;
+                          cout << "Your new balance is: " << cAccounts[i].accBalance << endl;
+                          cout << "-------------------" << endl;
+                          cout << "Hit enter to continue" << endl;
+                          char enter = cin.get(); 
+                          cin.ignore();
+
+                          continue;
+                         }
+                        case 3: {
+                            main();
+                            break;
+                         }
+                        case 4: {
+                            cout << "-------------------" << endl;
+                            cout << "Your current Balance is: " << cAccounts[i].accBalance << endl;
+                            cout << "Annual Service Charge: " << cAccounts[i].annualSC << endl;
+                            cout << "-------------------" << endl;
+                            cout << "Hit enter to continue" << endl;
+                            char enter = cin.get(); 
+                            cin.ignore();
+                            continue;
+                        }
+                        default: {
+                                cout << "Try another input!" << endl;
+                                cin.clear();
+                                cin.ignore();
+                                continue;
+                         }
+                        }
+                     }
+                 }
+             }
+        }else if (accountNumber.find("S") == 0) {
+            for(int i = 0; i < getTotalSavingAccounts(); i++) {
+            cout << "account number" << accountNumber << endl;
+            cout << "vs. " << sAccounts[i].accNum << endl;
+            if(accountNumber == sAccounts[i].accNum) {
+                for(;;) {
+                    cout << "-------------------" << endl;
+                    cout << "What would you like to do? \n" << endl;
+                    cout << "[1] Deposit into your savings account" << endl;
+                    cout << "[2] Withdraw from your savings account" << endl;
+                    cout << "[3] Return to main menu" << endl;
+                    cout << "[4] View Account Information (Balance, Annual Service Charge)" << endl;
+                    cout << "ACC #: " << sAccounts[i].accNum << endl;
+                    cout << "-------------------" << endl;
+                    int userInput;
+                    cin >> userInput;
+                    switch(userInput) {
+                       case 1: {
+
+                         cout << "-------------------" << endl;
+                         cout << "How much would you like to deposit into the account?: " << endl;
+                         cout << "-------------------" << endl;
+                         long double depositAmt;
+                         cin >> depositAmt;
+
+                         sAccounts[i].deposit(depositAmt);
+
+                         cout << "-------------------" << endl;
+                         cout << "Your new balance is: " << sAccounts[i].accBalance << endl;
+                         cout << "-------------------" << endl;
+                         cout << "Hit enter to continue" << endl;
+                         char enter = cin.get(); 
+                         cin.ignore();
+
+                         continue;
+
+                        }
+                        case 2: {
+                          cout << "-------------------" << endl;
+                          cout << "How much would you like to withdraw from the account?: " << endl;
+                          cout << "-------------------" << endl;
+                          long double withdrawAmt;
+                          cin >> withdrawAmt;
+                          cout << "-------------------" << endl;
+
+                          sAccounts[i].withdraw(withdrawAmt);
+\
+                          cout << "-------------------" << endl;
+                          cout << "Your new balance is: " << sAccounts[i].accBalance << endl;
+                          cout << "-------------------" << endl;
+                          cout << "Hit enter to continue" << endl;
+                          char enter = cin.get(); 
+                          cin.ignore();
+
+                          continue;
+                         }
+                        case 3: {
+                            main();
+                            break;
+                         }
+                        case 4: {
+                            cout << "-------------------" << endl;
+                            cout << "Your current Balance is: " << sAccounts[i].accBalance << endl;
+                            cout << "Annual Service Charge: " << sAccounts[i].annualSC << endl;
+                            cout << "-------------------" << endl;
+                            cout << "Hit enter to continue" << endl;
+                            char enter = cin.get(); 
+                            cin.ignore();
+                            continue;
+                        }
+                        default: {
+                                cout << "Try another input!" << endl;
+                                cin.clear();
+                                cin.ignore();
+                                continue;
+                         }
+                        }
+                     }
+                 }
+             }
+        }else {
+        cout << "Invalid Account #" << endl;
     }
 }
+
+void reloadFile(CheckingAccount *cAccounts, SavingsAccount *sAccounts) {
+    ofstream outFile;
+    outFile.open("c.txt");
+    cout << "wiggitiy" << endl;
+    for(int i = 0; i < getTotalCheckingAccounts(); i++) {
+        outFile << cAccounts[i].accNum << endl;
+        outFile << cAccounts[i].accBalance << endl;
+    }
+    outFile.close();
+
+    ofstream outFile2;
+    outFile2.open("s.txt");
+
+    for(int i = 0; i < getTotalSavingAccounts(); i++) {
+        outFile2 << sAccounts[i].accNum << endl;
+        outFile2 << sAccounts[i].accBalance << endl;
+    }
+
+    outFile2.close();
 
 }
