@@ -89,6 +89,7 @@ void openAccount() {
         cout << "Would you like to deposit more? 1 = YES || 2 = NO:" << endl;
         int choice;
         cin >> choice;
+        // Input validation
         while (choice > 2)
         {
             cout << "Would you like to deposit more? 1 = YES || 2 = NO:" << endl;
