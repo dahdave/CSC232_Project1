@@ -47,7 +47,7 @@ class SavingsAccount : public BankAccount {
     {
         if(status == false) 
         { // deny the withdraw
-            cout << "You may not withdraw, your account balance is: " << accBalance << endl;
+            cout << "You may not withdraw, your account balance is: $" << accBalance << endl;
             cout << "You must raise your account balance above $50 to become/remain active." << endl;
         }
         else if (status == true) 
@@ -67,7 +67,9 @@ class SavingsAccount : public BankAccount {
             }
             if(accBalance < 50.0) 
             {
-                cout << "Warning! Your savings account is now inactive because the balance is now below $50." << endl;
+                cout << "Warning! Your savings account is now inactive because the balance is now below $50. " << endl;
+                cout << "There was a $5 service charge. ";
+                accBalance -= 5;
                 cout << "You must deposit more money before you can make another withdraw." << endl;
                 status = false;
             }
