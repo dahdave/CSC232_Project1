@@ -2,6 +2,7 @@
 #define BANKACCOUNT_H
 #include <string>
 #include <iostream>
+#include <fstream>
 using namespace std;
 //parent class
 // bank account 
@@ -9,31 +10,49 @@ class BankAccount
 {
     public:
     string accNum;
-    double accBalance;
+    long double accBalance;
     double annualIR;
     double annualSC;
 
+    public:
     // Default
     BankAccount()
     {
         accNum = "";
         accBalance = 0.0;
-        annualIR = 0.0;
+
+        ifstream nFile;
+        nFile.open("interestRate.txt");
+        string text2;
+        getline(nFile,text2);
+        if(annualIR >= .1 && annualIR <= 10) {
+         annualIR = stod(text2);
+        }else {
+            annualIR = 0;
+        }
+
+        ifstream inFile;
+        inFile.open("serviceCharge.txt");
+        string text;
+        getline(inFile,text);
+        annualSC = stod(text);
+
+
     }
     // Constructor
-    BankAccount(string num, double balance, double intrestRate)
+    BankAccount(string num, long double balance, double intrestRate)
     {
         accNum  = num;
         accBalance = balance;
         annualIR = intrestRate;
     }
     // Deposits an amount specified into the account balance
-    virtual void deposit(double ammount)
+    virtual void deposit(long double ammount)
     {
         accBalance += ammount;
     }
     // Withdraws an amount specified from the account balance
-    virtual void withdraw(double ammount)
+    virtual void withdraw(long double ammount)
     {
         accBalance -= ammount;
     }
