@@ -6,6 +6,12 @@
 #include <limits>
 using namespace std;
 
+
+//  David Harper — M03353490
+//  Christian Lesile — M02560358
+//  Ethan Dawley - M03110954
+//
+
 class CheckingAccount : public BankAccount {
    public:
    bool flag; // high risk
