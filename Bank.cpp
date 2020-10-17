@@ -7,6 +7,9 @@
 #include <fstream>
 #include <vector>
 
+//  David Harper — M03353490
+//  Christian Lesile — M02560358
+//  Ethan Dawley - M03110954
 
 
 using namespace std;
