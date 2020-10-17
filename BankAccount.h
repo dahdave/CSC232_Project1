@@ -40,21 +40,21 @@ class BankAccount
 
     }
     // Constructor
-    BankAccount(string num, long double balance, double intrestRate)
+    BankAccount(string num, long double balance, double interestRate)
     {
         accNum  = num;
         accBalance = balance;
-        annualIR = intrestRate;
+        annualIR = interestRate;
     }
     // Deposits an amount specified into the account balance
-    virtual void deposit(long double ammount)
+    virtual void deposit(long double amount)
     {
-        accBalance += ammount;
+        accBalance += amount;
     }
     // Withdraws an amount specified from the account balance
-    virtual void withdraw(long double ammount)
+    virtual void withdraw(long double amount)
     {
-        accBalance -= ammount;
+        accBalance -= amount;
     }
     // calculates daily interest rate and adds the daily interest to account balance
     double calcInt(double balance)
