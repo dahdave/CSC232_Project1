@@ -3,6 +3,11 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+
+//  David Harper — M03353490
+//  Christian Lesile — M02560358
+//  Ethan Dawley - M03110954
+//
 using namespace std;
 //parent class
 // bank account 
